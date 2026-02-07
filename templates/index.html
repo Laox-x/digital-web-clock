@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dijital Saat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="clock">
+        <div id="time">00:00:00</div>
+        <div id="date">Yükleniyor...</div>
+    </div>
+
+    <script>
+        function updateClock() {
+            fetch("/get_time")
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("time").innerText = data.time_live;
+                    document.getElementById("date").innerText = data.time_info;
+                });
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+
+</body>
+</html>
